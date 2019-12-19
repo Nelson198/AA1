@@ -1,0 +1,125 @@
+% Setup -------------------------------
+
+\documentclass[a4paper]{report}
+\usepackage[a4paper, total={6in, 10in}]{geometry}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\usepackage{xcolor}
+
+% Encoding
+%--------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%--------------------------------------
+
+% Portuguese-specific commands
+%--------------------------------------
+\usepackage[portuguese]{babel}
+%--------------------------------------
+
+% Hyphenation rules
+%--------------------------------------
+\usepackage{hyphenat}
+%--------------------------------------
+
+% Capa do relatório
+
+\title{
+	Aprendizagem Automática I
+	\\ \Large{\textbf{Projeto de Avaliação}}
+	\\ -
+	\\ Mestrado em Engenharia Informática
+	\\ \large{Universidade do Minho}
+	\\ Relatório
+}
+\author{
+	\begin{tabular}{ll}
+		\textbf{Grupo}
+		\\\hline
+		PG41081 & José Alberto Martins Boticas
+		\\
+		PG41091 & Nelson José Dias Teixeira
+	\end{tabular}
+}
+
+\date{\today}
+
+\begin{document}
+
+\begin{titlepage}
+    \maketitle
+\end{titlepage}
+
+% Resumo
+
+\begin{abstract}
+    Este projeto de avaliação relativo à unidade curricular de Aprendizagem Automática I consiste, globalmente, na aplicação de uma das técnicas abordadas durante as aulas sobre um conjunto de dados. O conjunto de dados mencionado previamente é escolhido sem qualquer tipo de restrição por parte dos elementos do grupo por forma a despoletar o interesse dos mesmos durante a análise estatística dos dados presentes. Como tal, durante a execução deste trabalho prático (cuja unidade curricular integra o perfil de Ciência de Dados), surge uma motivação extra na interpretação dos resultados obtidos.
+\end{abstract}
+
+% Índice
+
+\tableofcontents
+
+% Introdução
+
+\chapter{Introdução} \label{intro}
+\large{
+    \section{Apresentação da base de dados escolhida}
+	A base de dados escolhida pelos dois elementos que constituem este grupo diz respeito aos relatórios de incidentes criminosos reportados pelo departamento policial de Boston (BPD - \textit{Boston Police Department}) desde 14 de Junho de 2015 até ao momento. Estes documentos registam os detalhes em torno do incidente em questão e que foi respondido pelos polícias de Boston.
+	
+	\section{Contextualização}
+	
+	
+	\section{Definição das variáveis}
+	Quanto às incógnitas presentes na base de dados foi possível identificar tanto variáveis quantitativas como variáveis qualitativas ou categóricas. É exibido de seguida as mesmas:
+    \begin{itemize}
+	    \item \textit{\textbf{INCIDENT\_NUMBER}}: número do incidente;
+	    \item \textit{\textbf{OFFENSE\_CODE}}: código do crime/incidente;
+	    \item \textit{\textbf{OFFENSE\_CODE\_GROUP}}: nome do grupo/categoria associado(a) ao código do crime/incidente;
+	    \item \textit{\textbf{OFFENSE\_DESCRIPTION}}: descrição associada ao código do crime/incidente;
+	    \item \textit{\textbf{DISTRICT}}: distrito de Boston onde ocorreu o incidente;
+	    \item \textit{\textbf{REPORTING\_AREA}}: número que identifica a área onde foi reportado o crime;
+	    \item \textit{\textbf{SHOOTING}}: variável que indica se houve ou não um tiroteio num determinado crime;
+	    \item \textit{\textbf{OCCURRED\_ON\_DATE}}: data e hora do incidente;
+	    \item \textit{\textbf{YEAR}}: ano do incidente;
+	    \item \textit{\textbf{MONTH}}: mês do incidente;
+	    \item \textit{\textbf{DAY\_OF\_WEEK}}: dia da semana do incidente;
+	    \item \textit{\textbf{HOUR}}: hora do incidente;
+	    \item \textit{\textbf{UCR\_PART}}: (...) \textcolor{orange}{ACABAR !}
+	    \item \textit{\textbf{STREET}}: rua onde ocorreu o crime.
+    \end{itemize}
+	
+	De salientar que foram removidas 3 variáveis que representavam as coordenadas do local do incidente criminoso pois não acrescentavam grande interesse na análise estatística. 
+	
+	\section{Objetivo de análise}
+	Dado o enorme número de registos presentes na base de dados surgiram algumas perguntas ou curiosidades sobre as quais queremos tomar conhecimento. Apresentam-se de seguida as mesmas:
+	\begin{enumerate}
+	    \item Quais os tipos de crime são mais comuns?
+	    \item Onde é que os diferentes tipos de crimes têm maior probabilidade de ocorrer?
+	    \item A frequência dos crimes cometidos muda ao longo do dia? E ao longo da semana? E durante o ano?
+	\end{enumerate}
+	
+	Consequentemente, por forma a responder a estas questões, é necessário especificar um modelo estatístico que se adequa a este contexto. Como tal, na próxima secção deste documento, é apresentado o modelo requerido.
+}
+
+\chapter{Metodologia}
+    \section{Modelo adoptado}
+
+\chapter{Resultados}
+
+\chapter{Conclusão}
+
+\chapter{Webgrafia}
+    \begin{itemize}
+        \item \textit{Website} indicado pela docente:
+        \par \textit{https://www.kaggle.com/AnalyzeBoston/crimes-in-boston}
+        \item Informação oficial acerca da base de dados:
+        \par \textit{https://data.boston.gov/dataset/crime-incident-reports-august-2015-to-date-source-new-system}
+    \end{itemize}
+
+\appendix
+\chapter{Observações}
+
+
+\end{document}
