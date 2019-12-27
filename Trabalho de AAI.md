@@ -14,9 +14,9 @@ Aumentar/Diminuíram os acidentes? Aumentaram/Diminuíram os crimes violentos?
 
 Qual o mês do ano mais propício a crimes? E em que existem mais acidentes? E outras ocorrências?
 
-O dia da semana influencia a quantidade de ocorrências?
+O dia da semana influencia a quantidade de ocorrências de crimes?
 
-Qual a distribuição de ocorrências por hora?
+Qual a distribuição de ocorrências de incidentes criminosos por hora?
 
 Qual o tipo de ocorrência mais registadas?
 

@@ -1,11 +1,12 @@
 db <- read.csv(file="database/crime.csv", header=T)
 
-# Análise exploratória.
+# AnÃ¡lise exploratÃ³ria.
 names(db)
 str(db)
+summary(db)
 
-# Remover variáveis que dizem respeito às coordenadas dos locais dos crimes.
+# Remover variÃ¡veis que dizem respeito Ã s coordenadas dos locais dos crimes.
 db <- db[, -(15:17), drop=FALSE]
 
-# Nº de registos de crimes em cada mês desde 2015 até 2019.
+# NÂº de registos de crimes em cada mÃªs desde 2015 atÃ© 2019.
 table(db$MONTH, db$YEAR)

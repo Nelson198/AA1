@@ -5,7 +5,8 @@
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
 
-\usepackage{xcolor}
+\PassOptionsToPackage{hyphens}{url}
+\usepackage{hyperref}
 
 % Encoding
 %--------------------------------------
@@ -54,7 +55,10 @@
 % Resumo
 
 \begin{abstract}
-    Este projeto de avaliação relativo à unidade curricular de Aprendizagem Automática I consiste, globalmente, na aplicação de uma das técnicas abordadas durante as aulas sobre um conjunto de dados. O conjunto de dados mencionado previamente é escolhido sem qualquer tipo de restrição por parte dos elementos do grupo por forma a despoletar o interesse dos mesmos durante a análise estatística dos dados presentes. Como tal, durante a execução deste trabalho prático (cuja unidade curricular integra o perfil de Ciência de Dados), surge uma motivação extra na interpretação dos resultados obtidos.
+	Este projeto de avaliação relativo à unidade curricular de Aprendizagem Automática I consiste, globalmente, na aplicação de uma das técnicas abordadas durante as aulas sobre um 
+	conjunto de dados. O conjunto de dados mencionado previamente é escolhido sem qualquer tipo de restrição por parte dos elementos do grupo por forma a despoletar o interesse dos 
+	mesmos durante a análise estatística dos dados presentes. Como tal, durante a execução deste trabalho prático (cuja unidade curricular integra o perfil de Ciência de Dados), 
+	surge uma motivação extra na interpretação dos resultados obtidos.
 \end{abstract}
 
 % Índice
@@ -66,29 +70,59 @@
 \chapter{Introdução} \label{intro}
 \large{
     \section{Apresentação da base de dados escolhida}
-	A base de dados escolhida pelos dois elementos que constituem este grupo diz respeito aos relatórios de incidentes criminosos reportados pelo departamento policial de Boston (BPD - \textit{Boston Police Department}) desde 14 de Junho de 2015 até ao momento. Estes documentos registam os detalhes em torno do incidente em questão e que foi respondido pelos polícias de Boston.
+	A base de dados escolhida pelos dois elementos que constituem este grupo diz respeito aos relatórios de incidentes criminosos reportados pelo departamento policial de Boston 
+	(BPD - \textit{Boston Police Department}) desde 14 de Junho de 2015 até ao momento. Estes documentos registam os detalhes em torno de um determinado incidente que foi respondido 
+	ela polícia de Boston.
 	
 	\section{Contextualização}
-	
+	Hoje em dia grande parte dos cidadãos que integram a sociedade mundial questionam a intervenção da polícia nas suas cidades ou países. Esta incerteza reside no facto de não só
+	a população considerar que a força policial não é suficientemente adequada para um determinado tipo de incidente criminoso como também a abordagem adotada pela mesma ser demasiado 
+	violenta. Consequentemente, surge a seguinte questão: \textit{"De que forma é que podemos melhorar a intervenção das autoridades?"}. Por forma a dar resposta a esta pergunta, vamos 
+	estudar as intervenções policiais na cidade de Boston, nos Estados Unidos da América, com o intuito de perceber em que tipo de ocorrências estes mais intervêm, verificando se a sua 
+	intervenção é ou não eficaz. Desta forma, é possível avaliar se de facto a polícia de Boston foi ao não correta no tratamento dos incidentes crimonosos reportados e, consequentemente, 
+	afirmar se é até possível melhorar a sua intervenção.
 	
 	\section{Definição das variáveis}
-	Quanto às incógnitas presentes na base de dados foi possível identificar tanto variáveis quantitativas como variáveis qualitativas ou categóricas. É exibido de seguida as mesmas:
+	Quanto às incógnitas presentes na base de dados foi possível identificar tanto as variáveis quantitativas como as variáveis qualitativas ou categóricas. É exibido de 
+	seguida as mesmas:
     \begin{itemize}
-	    \item \textit{\textbf{INCIDENT\_NUMBER}}: número do incidente;
-	    \item \textit{\textbf{OFFENSE\_CODE}}: código do crime/incidente;
-	    \item \textit{\textbf{OFFENSE\_CODE\_GROUP}}: nome do grupo/categoria associado(a) ao código do crime/incidente;
-	    \item \textit{\textbf{OFFENSE\_DESCRIPTION}}: descrição associada ao código do crime/incidente;
-	    \item \textit{\textbf{DISTRICT}}: distrito de Boston onde ocorreu o incidente;
-	    \item \textit{\textbf{REPORTING\_AREA}}: número que identifica a área onde foi reportado o crime;
-	    \item \textit{\textbf{SHOOTING}}: variável que indica se houve ou não um tiroteio num determinado crime;
-	    \item \textit{\textbf{OCCURRED\_ON\_DATE}}: data e hora do incidente;
-	    \item \textit{\textbf{YEAR}}: ano do incidente;
-	    \item \textit{\textbf{MONTH}}: mês do incidente;
-	    \item \textit{\textbf{DAY\_OF\_WEEK}}: dia da semana do incidente;
-	    \item \textit{\textbf{HOUR}}: hora do incidente;
-	    \item \textit{\textbf{UCR\_PART}}: (...) \textcolor{orange}{ACABAR !}
-	    \item \textit{\textbf{STREET}}: rua onde ocorreu o crime.
+	    \item \textbf{INCIDENT\_NUMBER}: número do incidente;
+	    \item \textbf{OFFENSE\_CODE}: código do crime/incidente;
+	    \item \textbf{OFFENSE\_CODE\_GROUP}: nome do grupo/categoria associado(a) ao código do crime/incidente;
+	    \item \textbf{OFFENSE\_DESCRIPTION}: descrição associada ao código do crime/incidente;
+	    \item \textbf{DISTRICT}: distrito de Boston onde ocorreu o incidente;
+	    \item \textbf{REPORTING\_AREA}: número que identifica a área onde foi reportado o crime;
+	    \item \textbf{SHOOTING}: variável que indica se houve ou não um tiroteio num determinado crime;
+	    \item \textbf{OCCURRED\_ON\_DATE}: data e hora do incidente;
+	    \item \textbf{YEAR}: ano do incidente;
+	    \item \textbf{MONTH}: mês do incidente;
+	    \item \textbf{DAY\_OF\_WEEK}: dia da semana do incidente;
+	    \item \textbf{HOUR}: hora do incidente;
+	    \item \textbf{UCR\_PART}: \textit{Universal Crime Reporting Part number};
+	    \item \textbf{STREET}: rua onde ocorreu o crime.
     \end{itemize}
+	
+	Apresenta-se de seguida o tipo de cada uma das variáveis presentes:
+	\begin{center}
+		\begin{tabular}{ | l | l | }
+		\hline
+		\textbf{Nome da variável} & \textbf{Tipo de variável} \\ \hline
+		INCIDENT\_NUMBER & Qualitativa ordinal \\ \hline
+		OFFENSE\_CODE & Quantitativa discreta \\ \hline
+		OFFENSE\_CODE\_GROUP & Qualitativa nominal \\ \hline
+		OFFENSE\_DESCRIPTION & Qualitativa nominal \\ \hline
+		DISTRICT & Qualitativa nominal \\ \hline
+		REPORTING\_AREA & Quantitativa discreta \\ \hline
+		SHOOTING & Qualitativa ordinal \\ \hline
+		OCCURRED\_ON\_DATE & Qualitativa ordinal \\ \hline
+		YEAR & Quantitativa discreta \\ \hline
+		MONTH & Quantitativa discreta \\ \hline
+		DAY\_OF\_WEEK & Qualitativa nominal \\ \hline
+		HOUR & Quantitativa discreta \\ \hline
+		UCR\_PART & Qualitativa nominal \\ \hline
+		STREET & Qualitativa nominal \\ \hline
+		\end{tabular}
+	\end{center}
 	
 	De salientar que foram removidas 3 variáveis que representavam as coordenadas do local do incidente criminoso pois não acrescentavam grande interesse na análise estatística. 
 	
@@ -96,11 +130,14 @@
 	Dado o enorme número de registos presentes na base de dados surgiram algumas perguntas ou curiosidades sobre as quais queremos tomar conhecimento. Apresentam-se de seguida as mesmas:
 	\begin{enumerate}
 	    \item Quais os tipos de crime são mais comuns?
-	    \item Onde é que os diferentes tipos de crimes têm maior probabilidade de ocorrer?
+	    \item Onde e quando é que os diferentes tipos de crimes têm maior probabilidade de ocorrer?
 	    \item A frequência dos crimes cometidos muda ao longo do dia? E ao longo da semana? E durante o ano?
+	    \item Qual é a distribuição de ocorrências de incidentes criminosos observados por hora?
+	    \item O dia da semana influencia a quantidade de ocorrências de crimes?
 	\end{enumerate}
 	
-	Consequentemente, por forma a responder a estas questões, é necessário especificar um modelo estatístico que se adequa a este contexto. Como tal, na próxima secção deste documento, é apresentado o modelo requerido.
+	Consequentemente, por forma a responder a estas questões, é necessário especificar um modelo estatístico que se adequa a este contexto. Como tal, na próxima secção deste documento, 
+	é apresentado o modelo requerido.
 }
 
 \chapter{Metodologia}
@@ -111,15 +148,14 @@
 \chapter{Conclusão}
 
 \chapter{Webgrafia}
-    \begin{itemize}
-        \item \textit{Website} indicado pela docente:
-        \par \textit{https://www.kaggle.com/AnalyzeBoston/crimes-in-boston}
+	\begin{itemize}
+		\item \textit{Website} indicado pela docente:
+		\par \textit{\url{https://www.kaggle.com/datasets}}
+        \item \textit{Website} com o resumo da base de dados escolhida:
+        \par \textit{\url{https://www.kaggle.com/AnalyzeBoston/crimes-in-boston}}
         \item Informação oficial acerca da base de dados:
-        \par \textit{https://data.boston.gov/dataset/crime-incident-reports-august-2015-to-date-source-new-system}
+		\par \textit{\url{https://data.boston.gov/dataset/crime-incident-reports-august-2015-to-date-source-new-system}}
+		\item Informação mais detalhada acerca do campo \textit{UCR\_PART} presente na base de dados:
+		\par \textit{\url{https://en.wikipedia.org/wiki/Uniform\_Crime\_Reports}}
     \end{itemize}
-
-\appendix
-\chapter{Observações}
-
-
 \end{document}
