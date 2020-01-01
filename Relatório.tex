@@ -70,70 +70,109 @@
 \chapter{Introdução} \label{intro}
 \large{
     \section{Apresentação da base de dados escolhida}
-	A base de dados escolhida pelos dois elementos que constituem este grupo diz respeito aos relatórios de incidentes criminosos reportados pelo departamento policial de Boston 
-	(BPD - \textit{Boston Police Department}) desde 14 de Junho de 2015 até ao momento. Estes documentos registam os detalhes em torno de um determinado incidente que foi respondido 
-	ela polícia de Boston.
+	A base de dados escolhida pelos dois elementos que constituem este grupo diz respeito a registos clínicos ou hospitalares de \textit{Cleveland} com informação relativa à presença ou 
+	ausência de doenças cardíacas. Nesta pode-se encontrar exatamente 14 atributos, como por exemplo a idade e o sexo de uma dada pessoa bem como registos da sua pressão arterial. 
 	
 	\section{Contextualização}
-	Hoje em dia grande parte dos cidadãos que integram a sociedade mundial questionam a intervenção da polícia nas suas cidades ou países. Esta incerteza reside no facto de não só
-	a população considerar que a força policial não é suficientemente adequada para um determinado tipo de incidente criminoso como também a abordagem adotada pela mesma ser demasiado 
-	violenta. Consequentemente, surge a seguinte questão: \textit{"De que forma é que podemos melhorar a intervenção das autoridades?"}. Por forma a dar resposta a esta pergunta, vamos 
-	estudar as intervenções policiais na cidade de Boston, nos Estados Unidos da América, com o intuito de perceber em que tipo de ocorrências estes mais intervêm, verificando se a sua 
-	intervenção é ou não eficaz. Desta forma, é possível avaliar se de facto a polícia de Boston foi ao não correta no tratamento dos incidentes crimonosos reportados e, consequentemente, 
-	afirmar se é até possível melhorar a sua intervenção.
+	Apesar dos progressos consideráveis na luta contra as doenças cardiovasculares, estas continuam a ser a principal causa de morte na Europa. A alimentação inadequada é responsável por 
+	cerca de metade das mortes e da incapacidade causada pelas doenças cardiovasculares.
 	
+	Em Portugal, cerca de 35 mil portugueses morrem anualmente por doenças cardiovasculares, que continuam a ser a principal causa de morte e representam um terço de toda a mortalidade da 
+	população, embora muitas dessas mortes e desse sofrimento prolongado pudessem ser evitados por uma mudança simples nos hábitos alimentares.
+	
+	Com estes dados, os elementos que compõem este grupo ficaram sensibilizados acerca deste tema e mostraram-se interessados em investigar os fatores que de facto influenciam o aparecimento 
+	de doenças cardíacas.
+
 	\section{Definição das variáveis}
-	Quanto às incógnitas presentes na base de dados foi possível identificar tanto as variáveis quantitativas como as variáveis qualitativas ou categóricas. É exibido de 
-	seguida as mesmas:
+	No que diz respeito às variáveis associadas a esta base de dados foi relativamente acessível executar a sua análise. Contudo, o significado dos nomes atribuídos a cada uma das mesmas 
+	não é de todo trivial. Desta forma, exibe-se de seguida de forma mais detalhada o que cada uma das variáveis representa:
     \begin{itemize}
-	    \item \textbf{INCIDENT\_NUMBER}: número do incidente;
-	    \item \textbf{OFFENSE\_CODE}: código do crime/incidente;
-	    \item \textbf{OFFENSE\_CODE\_GROUP}: nome do grupo/categoria associado(a) ao código do crime/incidente;
-	    \item \textbf{OFFENSE\_DESCRIPTION}: descrição associada ao código do crime/incidente;
-	    \item \textbf{DISTRICT}: distrito de Boston onde ocorreu o incidente;
-	    \item \textbf{REPORTING\_AREA}: número que identifica a área onde foi reportado o crime;
-	    \item \textbf{SHOOTING}: variável que indica se houve ou não um tiroteio num determinado crime;
-	    \item \textbf{OCCURRED\_ON\_DATE}: data e hora do incidente;
-	    \item \textbf{YEAR}: ano do incidente;
-	    \item \textbf{MONTH}: mês do incidente;
-	    \item \textbf{DAY\_OF\_WEEK}: dia da semana do incidente;
-	    \item \textbf{HOUR}: hora do incidente;
-	    \item \textbf{UCR\_PART}: \textit{Universal Crime Reporting Part number};
-	    \item \textbf{STREET}: rua onde ocorreu o crime.
+	    \item \textbf{age}: idade de uma determinada pessoa em anos;
+		\item \textbf{sex}: sexo de uma determinada pessoa:
+		\begin{itemize}
+			\item 1 : masculino;
+			\item 0 : feminino.
+		\end{itemize}
+	    \item \textbf{cp}: tipo de dor no peito (4 tipos):
+	    \begin{itemize}
+			\item 1 : angina típica;
+			\item 2 : angina atípica;
+			\item 3 : dor não anginal;
+			\item 4 : assintomática.
+		\end{itemize}
+	    \item \textbf{trestbps}: pressão arterial em repouso (em \textit{mm} \textit{Hg} de uma determinada pessoa na admissão no hospital);
+	    \item \textbf{chol}: medição do colesterol de uma determinada pessoa em \textit{mg/dl};
+		\item \textbf{fbs}: açúcar no sangue em jejum > 120 \textit{mg/dl} da pessoa em causa:
+		\begin{itemize}
+			\item 1 : verdadeiro;
+			\item 0 : falso.
+		\end{itemize}
+	    \item \textbf{restecg}: resultados eletrocardiográficos em repouso de uma pessoa:
+	    \begin{itemize}
+			\item 0 : normal;
+			\item 1 : com anormalidade da onda \textit{ST-T};
+			\item 2 : com provável ou definida hipertrofia ventricular esquerda pelo critério de Estes.
+		\end{itemize}
+	    \item \textbf{thalach}: frequência cardíaca máxima alcançada;
+		\item \textbf{exang}: angina induzida pelo exercício:
+		\begin{itemize}
+			\item 1 : sim;
+			\item 0 : não.
+		\end{itemize}
+	    \item \textbf{oldpeak}: depressão \textit{ST} induzida por exercício em relação ao repouso;
+	    \item \textbf{slope}: a inclinação do segmento ST do pico do exercício:
+	    \begin{itemize}
+			\item 1 : ascendente;
+			\item 2 : plano (constante);
+			\item 3 : descendente.
+		\end{itemize}
+	    \item \textbf{ca}: número de vasos principais (0-3);
+		\item \textbf{thal}: distúrbio sanguíneo denominado por talassemia:
+		\begin{itemize}
+			\item 3 : normal;
+			\item 6 : defeito fixo;
+			\item 7 : defeito reversível.
+		\end{itemize}
+	    \item \textbf{target}: doença cardíaca:
+	    \begin{itemize}
+			\item 1 : sim;
+			\item 0 : não.
+		\end{itemize}
     \end{itemize}
 	
+	Ainda relativamente às incógnitas presentes na base de dados foi possível identificar tanto as variáveis quantitativas como as variáveis qualitativas ou categóricas. 
 	Apresenta-se de seguida o tipo de cada uma das variáveis presentes:
 	\begin{center}
 		\begin{tabular}{ | l | l | }
 		\hline
 		\textbf{Nome da variável} & \textbf{Tipo de variável} \\ \hline
-		INCIDENT\_NUMBER & Qualitativa ordinal \\ \hline
-		OFFENSE\_CODE & Quantitativa discreta \\ \hline
-		OFFENSE\_CODE\_GROUP & Qualitativa nominal \\ \hline
-		OFFENSE\_DESCRIPTION & Qualitativa nominal \\ \hline
-		DISTRICT & Qualitativa nominal \\ \hline
-		REPORTING\_AREA & Quantitativa discreta \\ \hline
-		SHOOTING & Qualitativa ordinal \\ \hline
-		OCCURRED\_ON\_DATE & Qualitativa ordinal \\ \hline
-		YEAR & Quantitativa discreta \\ \hline
-		MONTH & Quantitativa discreta \\ \hline
-		DAY\_OF\_WEEK & Qualitativa nominal \\ \hline
-		HOUR & Quantitativa discreta \\ \hline
-		UCR\_PART & Qualitativa nominal \\ \hline
-		STREET & Qualitativa nominal \\ \hline
+		age & Quantitativa discreta \\ \hline
+		sex & Qualitativa ordinal \\ \hline
+		cp & Qualitativa ordinal \\ \hline
+		trestbps & Quantitativa discreta \\ \hline
+		chol & Quantitativa discreta \\ \hline
+		fbs & Qualitativa ordinal \\ \hline
+		restecg & Qualitativa ordinal \\ \hline
+		thalach & Quantitativa discreta \\ \hline
+		exang & Qualitativa ordinal \\ \hline
+		oldpeak & Quantitativa contínua \\ \hline
+		slope & Qualitativa ordinal \\ \hline
+		ca & Quantitativa discreta \\ \hline
+		thal & Qualitativa ordinal \\ \hline
+		target & Qualitativa ordinal \\ \hline
 		\end{tabular}
 	\end{center}
 	
-	De salientar que foram removidas 3 variáveis que representavam as coordenadas do local do incidente criminoso pois não acrescentavam grande interesse na análise estatística. 
-	
 	\section{Objetivo de análise}
-	Dado o enorme número de registos presentes na base de dados surgiram algumas perguntas ou curiosidades sobre as quais queremos tomar conhecimento. Apresentam-se de seguida as mesmas:
+	Perante esta base de dados, os elementos que integram este grupo procuram, com a informação disponível, prever se uma determinada pessoa possui ou não uma doença cardíaca. Consequentemente,
+	a variável de interesse para realizar este estudo corresponde à incógnita \textit{target}.
+	Para além deste objetivo, vamos também perceber se existem outros fatores relativos ao coração que permitem prever certos eventos cardiovasculares. 
+	
+	Após traçarmos o objetivo principal na análise sobre a base de dados em causa, surgiram algumas questões da nossa parte. Apresentam-se de seguida as mesmas:
 	\begin{enumerate}
-	    \item Quais os tipos de crime são mais comuns? Qual é o tipo de crime com menor frequência? E o com maior frequência?
-	    \item Onde e quando é que os diferentes tipos de crimes têm maior probabilidade de ocorrer?
-	    \item A frequência dos crimes cometidos muda ao longo do dia? E ao longo da semana? E durante o ano?
-	    \item Qual é a distribuição de ocorrências de incidentes criminosos observados por hora?
-	    \item O dia da semana influencia a quantidade de ocorrências de crimes?
+	    \item Quantas pessoas possuem uma doença cardíaca?
+	    \item Que fatores influenciam o aparecimento de uma doença cardíaca?
+	    \item ...
 	\end{enumerate}
 	
 	Consequentemente, por forma a responder a estas questões, é necessário especificar um modelo estatístico que se adequa a este contexto. Como tal, na próxima secção deste documento, 
@@ -152,7 +191,8 @@
 \large{
 	Após a apresentação da metodologia e dos resultados obtidos durante análise estatística desta base de dados, dá-se por concluído a realização deste trabalho prático. Com o modelo 
 	implementado foi possível dar resposta às perguntas inicialmente traçadas, extraindo informação relevante para a compreensão e interpretação do contexto em causa. Consequentemente, 
-	foi também possível alcançar os objectivos delineados na introdução deste documento.
+	foi também possível alcançar os objectivos delineados na introdução deste documento. De notar também que apesar da dimensão reduzida desta base de dados foi possível especificar um
+	modelo adequado para o efeito.
 }
 
 \chapter{Webgrafia}
@@ -160,10 +200,8 @@
 		\item \textit{Website} indicado pela docente:
 		\par \textit{\url{https://www.kaggle.com/datasets}}
         \item \textit{Website} com o resumo da base de dados escolhida:
-        \par \textit{\url{https://www.kaggle.com/AnalyzeBoston/crimes-in-boston}}
-        \item Informação oficial acerca da base de dados:
-		\par \textit{\url{https://data.boston.gov/dataset/crime-incident-reports-august-2015-to-date-source-new-system}}
-		\item Informação mais detalhada acerca do campo \textit{UCR\_PART} presente na base de dados:
-		\par \textit{\url{https://en.wikipedia.org/wiki/Uniform\_Crime\_Reports}}
+		\par \textit{\url{https://www.kaggle.com/ronitf/heart-disease-uci}}
+		\item \textit{Website} com a informação oficial da base de dados escolhida:
+		\par \textit{\url{https://archive.ics.uci.edu/ml/datasets/Heart+Disease}}
     \end{itemize}
 \end{document}
