@@ -228,23 +228,21 @@ barplot(o,
 # <----- Análise das variáveis ----->
 
 # Criação de modelos para averiguar se existe uma relação entre cada um dos preditores e a variável de interesse.
-model = glm(target ~ ., data = db, family = binomial())
+model = glm(target ~ age + sex + cp + trestbps + restecg + thalach + exang + oldpeak + slope + ca, data = db, family = binomial())
 summary(model)
 
-newModel = glm(target ~ sex + cp + thalach + oldpeak + ca, db, family=binomial())
-summary(newModel)
+# Variáveis que rejeitam a hipótese nula, isto é, existe uma relação com a variável de interesse:
+# sex, cp, exang, oldpeak, ca
+model = glm(target ~ sex + cp + exang + oldpeak + ca, data = db, family = binomial())
+summary(model)
 
 # Predição
-pred = predict(newModel, db, type="response")
+probs = predict(model, type="response")
 
-predNew = as.data.frame(pred)
+pred = rep("Healthy", 303)
+pred[probs > 0.5] = "Heart Disease" 
+table(pred, db$target)
+(108+144)/303
+mean(pred == db$target)
 
-categorise = function(x) {
-  return(ifelse(x>0.5,1,0))
-}
-
-predNew = apply(predNew, 2, categorise)
-head(predNew, 10)
-
-# Avaliação do modelo
-
+# Ver modelo e predição para um subconjunto da base de dados para confirmar a precisão!
