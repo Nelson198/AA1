@@ -7,6 +7,12 @@
 
 \PassOptionsToPackage{hyphens}{url}
 \usepackage{hyperref}
+
+% Images package
+\usepackage{graphicx}
+
+% R language style
+\usepackage[svgnames]{xcolor}
 \usepackage{listings}
 
 \lstset{language=R,
@@ -303,9 +309,6 @@
 
 \chapter{Resultados}
 \large{
-	Do capítulo anterior, podemos retirar a conclusão de que o modelo não deverá conseguir uma proporção de acerto perto dos 90\%. 
-	Apesar de parecer um valor elevado, diz-nos que 1 em cada 10 predições será incorreta.
-
 	Respondamos às perguntas feitas no início deste relatório:
 	\begin{enumerate}
 		\item \textbf{O que influencia o aparecimento de uma doença cardíaca?} \\
@@ -313,6 +316,17 @@
 		através do estudo do primeiro modelo, perceber que níveis de colesterol superiores a 120\textit{mg/dl} aumentam a probabilidade.
 		Por outro lado, a pressão arterial e a existência de doenças de sangue, do grupo talassemia, parecem ser fatores que influenciam o aparecimento destas doenças, 
 		pelo que um cuidado acompanhamento destes fatores pode ser importante para evitar uma doença cardíaca ou o diagnóstico precoce de uma. \\
+
+		A idade poderá ser um fator a ter em conta no aparecimento de uma doença cardíaca. No entanto, neste caso, não foi relevante na especificação dos modelos.
+		Isto pode ser explicado pelo facto de a base de dados não ter uma boa representação neste campo, uma vez que as amostras estão compreendidas num curto intervalo, tal 
+		como se pode ver na figura \ref{fig:histogram}.
+
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[scale=0.4]{images/histogram.png}
+			\caption{Histograma da variável \textit{age}}
+			\label{fig:histogram}
+		\end{figure}
 
 		\item \textbf{Que fatores podem indicar a presença de doença cardíaca?} \\
 		Através do estudo realizado, é possível perceber que a resposta ao exercício físico pode ser um indicador que permita identificar uma doença cardíaca.
@@ -465,10 +479,6 @@ cv.err5
 cv.err6
 cv.err7
 cv.err8
-
-
 \end{lstlisting}
-
-
 
 \end{document}
