@@ -7,6 +7,7 @@
 
 \PassOptionsToPackage{hyphens}{url}
 \usepackage{hyperref}
+\usepackage{listings}
 
 % Encoding
 %--------------------------------------
@@ -170,9 +171,9 @@
 	
 	Após traçarmos o objetivo principal na análise sobre a base de dados em causa, surgiram algumas questões da nossa parte. Apresentam-se de seguida as mesmas:
 	\begin{enumerate}
-	    \item Quantas pessoas possuem uma doença cardíaca?
-	    \item Que fatores influenciam o aparecimento de uma doença cardíaca?
-	    \item ...
+	    \item O que influencia o aparecimento de uma doença cardíaca?
+	    \item Que fatores indicam a presença de uma doença cardíaca?
+		\item Podemos prever a existência de uma doença cardíaca com os indicadores expostos?
 	\end{enumerate}
 	
 	Consequentemente, por forma a responder a estas questões, é necessário especificar um modelo estatístico que se adequa a este contexto. Como tal, na próxima secção deste documento, 
@@ -185,21 +186,146 @@
 	anteriormente, a variável de interesse presente neste conjunto de dados corresponde à incógnita \textit{\textbf{target}}. Uma vez que a mesma é uma variável qualitativa ordinal, temos que o 
 	problema em causa é um problema de \textbf{classificação}. Como tal, a técnica de regressão adotada para modelar esta base de dados é nada mais nada menos do que a \textbf{regressão logística}.
 
-	\section{Especificação do modelo}
+	\section{À descoberta do melhor modelo}
+	\subsection{A filosofia}
+
+	Foram testados diversos modelos de regressão logística para se descobrir qual deles seria o melhor.
+	
+	O primeiro deles foi também o mais óbvio, com todas as variáveis da base de dados como preditores.
+	model.1 <- glm(target ~ ., family=binomial, data=database)
+
+	A partir daqui, criaram-se diversos modelos. Uma a uma, retiram-se as variáveis não estatisticamente significativas.
+	Depois de retiradas 5 variáveis, todas as variáveis apresentavam significância, embora uma delas apenas a 10\%.
+	Por isso, tomou-se a decisão de se experimentar mais um modelo, retirando a dita variável.
+	
+	Por fim, tentou-se ainda um outro modelo, retirando do modelo inicial todas as variáveis que se revelaram não estatisticamente significativas no mesmo.
+	Repetiu-se o processo anterior, sendo que foi apenas gerado um modelo, mas o mesmo foi descartado por ser idêntico a outro já gerado.
+
+	Embora já com sete modelos, foi decidida a tentativa de uma nova abordagem. 
+	Assim, testaram-se modelos variável a variável. A partir destes, escolheram-se as variáveis que tivessem significância a 0.1\% (máxima medida do R).
+	Com estas, gerou-se um novo modelo. De realçar que o mesmo é diferente de todos os testados anteriormente.
+
+	A remoção de variáveis não estatisticamente significativas gerou um novo modelo, mas o mesmo foi descartado por ser igual a um alcançado anteriormente.
+
+
+	\subsection{Os modelos}
+
+	\begin{center}
+		\begin{tabular}{ || l || c | c | c | c | c | c | c | c || }
+		\hline
+		\textbf{Modelo} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} \\
+		\hline
+		\hline
+		\textbf{age} 		& x & x &   &	&	&	&	& x	\\
+		\hline
+		\textbf{sex} 		& x & x & x & x	& x	& x	& x	& x	\\
+		\hline
+		\textbf{cp} 		& x & x & x	& x	& x	& x	& x	& x	\\
+		\hline
+		\textbf{trestbps} 	& x & x & x & x	& x	& x	& x	& x	\\
+		\hline
+		\textbf{chol} 		& x & x & x &	&	&	&	& 	\\
+		\hline
+		\textbf{fbs} 		& x &   &   &	&	&	&	& 	\\
+		\hline
+		\textbf{restecg} 	& x & x & x & x	& x	&	& 	&	\\
+		\hline
+		\textbf{thalach} 	& x & x & x & x	& x	& x	& x	& x	\\
+		\hline
+		\textbf{exang} 		& x & x & x & x & x	& x	& x	& x	\\
+		\hline
+		\textbf{oldpeak} 	& x & x & x & x & x	& x	& x	& x	\\
+		\hline
+		\textbf{slope} 		& x & x & x & x	&	&	& x	& x	\\
+		\hline
+		\textbf{ca} 		& x & x & x & x	& x	& x & x	& x	\\
+		\hline
+		\textbf{thal} 		& x & x & x & x	& x	& x	& x	& x	\\
+		\hline
+		\end{tabular}
+	\end{center}
+
+
+	\subsection{Qual o melhor?}
+
+	Desenvolvidos os modelos, procedeu-se ao seu estudo. Foram feitas, entre outras, duas análises principais:
+	\begin{itemize}
+		\item a percentagem de predições corretas, com recurso à função \lstinline|predict(., type="response")| e usando como ponto de corte de probabilidade de doença 55\%;
+		\item o erro médio dado pela avaliação \textit{cross-validation - leave-one-out}, sendo esse erro médio a proporção de classificações corretas, usando o mesmo ponto de corte (55\%).
+
+	\begin{center}
+		\begin{tabular}{ | c | c | c | }
+		\hline
+		\textbf{Modelo} & \textbf{Predições corretas} & \textbf{Erro médio - Leave-one-out} \\ 
+		\hline
+		\textbf{1} & 85.48\% & 15.18\% \\ 
+		\hline
+		\textbf{2} & 85.48\% & 14.85\% \\
+		\hline
+		\textbf{3} & 85.48\% & 14.52\% \\
+		\hline
+		\textbf{4} & 85.81\% & 13.86\% \\
+		\hline
+		\textbf{5} & 85.81\% & 14.52\% \\
+		\hline
+		\textbf{6} & 84.49\% & 15.51\% \\
+		\hline
+		\textbf{7} & 85.81\% & 14.85\% \\
+		\hline								   	
+		\textbf{8} & 86.14\% & 14.19\% \\
+		\hline
+		\end{tabular}
+	\end{center}
+
+	Destas análises, é possível perceber que os modelos têm resultados semelhantes. No entanto, é possível perceber que alguns deles se destacam.
+
+	Vamos então destacar dois destes modelos: \textbf{4} e \textbf{8}. O primeiro destacam-se pela proporção de erro médio, com a técnica de \textit{leave-one-out}, mais baixa.
+	O último destaca-se pela proporção de classificações corretas, utilizando toda a base de dados, mais elevada.
+
+	Comparando estes modelos, percebemos que a decisão por um deles se prenderá pela importância que dermos a cada uma das análises.
+	Na opinião dos autores deste relatório, a segunda (erro médio) parece a mais relevante, uma vez que se avalia a capacidade do modelo prever dados que não pertencem à base de dados que serviu de treino.
+
+	Portanto, o modelo escolhido é o modelo número 4.
 }
 
 \chapter{Resultados}
 \large{
-	Neste capítulo do relatório são referidos os resultados principais da análise da base de dados escolhida. Como tal, foram escolhidas as tabelas e os gráficos que melhor traduzem os resultados
-	obtidos.
+	Do capítulo anterior, podemos retirar a conclusão de que o modelo não deverá conseguir uma proporção de acerto perto dos 90\%. 
+	Apesar de parecer um valor elevado, diz-nos que 1 em cada 10 predições será incorreta.
+
+	Respondamos às perguntas feitas no início deste relatório:
+	\begin{enumerate}
+		\item \textbf{O que influencia o aparecimento de uma doença cardíaca?} \\
+		Ao contrário do que se poderia pensar, os níveis de colesterol não parecem ser um bom indicador da presença de uma doença cardíaca, embora seja possível, 
+		através do estudo do primeiro modelo, perceber que níveis de colesterol superiores a 120\textit{mg/dl} aumentam a probabilidade.
+		Por outro lado, a pressão arterial e a existência de doenças de sangue, do grupo talassemia, parecem ser fatores que influenciam o aparecimento destas doenças, 
+		pelo que um cuidado acompanhamento destes fatores pode ser importante para evitar uma doença cardíaca ou o diagnóstico precoce de uma. \\
+
+		\item \textbf{Que fatores podem indicar a presença de doença cardíaca?} \\
+		Através do estudo realizado, é possível perceber que a resposta ao exercício físico pode ser um indicador que permita identificar uma doença cardíaca.
+		Mais concretamente, deve ter-se em atenção a angina (dor torácica) induzida pelo exercício físico, a frequência cardíaca máxima alcançada e a inclinação do segmento ST no eletrocardiograma, no pico do exercício.
+		Obviamente que, tal como referido anteriormente, a presença de uma doença sanguínea também dar pistas importantes nesse sentido.
+		Por fim, o número de vasos sanguíneos também aparenta ser um bom indicador da presença de uma doença cardíaca. \\
+
+		\item \textbf{Podemos prever a existência de uma doença cardíaca com os indicadores expostos?} \\
+		O estudo indica que poderá ser possível prever a existência de uma doença cardíaca, mas indica que a fiabilidade não é tão elevada como se gostaria.
+		No entanto, vários fatores podem influenciar os valores conseguidos, como o tamanho da base de dados, que parece ser algo curta (303 entradas).
+		Com o mesmo tipo de preditores e uma base de dados mais extensa, é de prever melhorias nas avaliações.
+
+		Mas será isto necessário? Não conseguirá um médico especializado, com recurso aos mesmos dados, identificar uma doença cardíaca num paciente?
+		
 }
 
 \chapter{Conclusão}
 \large{
-	Após a apresentação da metodologia e dos resultados obtidos durante análise estatística desta base de dados, dá-se por concluído a realização deste trabalho prático. Com o modelo 
-	implementado foi possível dar resposta às perguntas inicialmente traçadas, extraindo informação relevante para a compreensão e interpretação do contexto em causa. Consequentemente, 
-	foi também possível alcançar os objectivos delineados na introdução deste documento. De notar também que apesar da dimensão reduzida desta base de dados foi possível especificar um
-	modelo adequado para o efeito.
+	Após a apresentação da metodologia e dos resultados obtidos durante análise estatística desta base de dados, dá-se por concluído a realização deste trabalho prático. 
+	Com o modelo implementado (e ainda outros desenvolvidos), foi possível dar resposta às perguntas inicialmente traçadas, extraindo informação relevante para a compreensão e interpretação do contexto em causa. 
+	Consequentemente, foi também possível alcançar os objectivos delineados na introdução deste documento. 
+	
+	De notar também que apesar da dimensão reduzida desta base de dados foi possível especificar um modelo adequado para o efeito, ainda que o mesmo não seja o melhor. 
+	Uma base de dados mais extensa pode ser a resposta para melhores predições.
+
+	Foi ainda possível concluir que nem todas as variáveis da base de dados são relevantes na previsão da existência de uma doença cardíaca, pelo que a sua substituição pode ser um passo importante na melhoria dos modelos gerados.
 }
 
 \chapter{Webgrafia}
