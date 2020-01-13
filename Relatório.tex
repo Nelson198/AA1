@@ -202,15 +202,15 @@
 	anteriormente, a variável de interesse presente neste conjunto de dados corresponde à incógnita \textit{\textbf{target}}. Uma vez que a mesma é uma variável qualitativa ordinal, temos que o 
 	problema em causa é um problema de \textbf{classificação}. Como tal, a técnica de regressão adotada para modelar esta base de dados é nada mais nada menos do que a \textbf{regressão logística}.
 
-	\section{À descoberta do melhor modelo}
-	\subsection{A filosofia}
+	\section{Escolha do melhor modelo}
+	\subsection{Filosofia}
 
 	Foram testados diversos modelos de regressão logística para se descobrir qual deles seria o melhor.
 	
-	O primeiro deles foi também o mais óbvio, com todas as variáveis da base de dados como preditores:
+	O primeiro deles foi, desde logo, o mais óbvio, com todas as variáveis da base de dados como preditores:
 
 	\begin{verbatim}
-		model.1 <- glm(target ~ ., family = binomial, data = database)
+	    model.1 <- glm(target ~ ., family = binomial, data = database)
 	\end{verbatim}
 
 	A partir daqui, criaram-se diversos modelos. Uma a uma, retiram-se as variáveis não estatisticamente significativas.
@@ -221,13 +221,13 @@
 	Repetiu-se o processo anterior, sendo que foi apenas gerado um modelo, mas o mesmo foi descartado por ser idêntico a outro já gerado.
 
 	Embora já com sete modelos, foi decidida a tentativa de uma nova abordagem. 
-	Assim, testaram-se modelos variável a variável. A partir destes, escolheram-se as variáveis que tivessem significância a 0.1\% (máxima medida do R).
+	Assim, testaram-se modelos variável a variável. A partir destes, escolheram-se as variáveis que tivessem significância a 0.1\% (máxima medida do \textit{R}).
 	Com estas, gerou-se um novo modelo. De realçar que o mesmo é diferente de todos os testados anteriormente.
 
 	A remoção de variáveis não estatisticamente significativas gerou um novo modelo, mas o mesmo foi descartado por ser igual a um alcançado anteriormente.
 
 
-	\subsection{Os modelos}
+	\subsection{Modelos}
 
 	\begin{center}
 		\begin{tabular}{ || l || c | c | c | c | c | c | c | c || }
@@ -264,12 +264,14 @@
 		\end{tabular}
 	\end{center}
 
+	Nesta tabela pode-se constatar todos os modelos considerados pelos elementos deste grupo para ajustar o conjunto de dados em causa e, ainda, os preditores incluídos nos mesmos.
 
-	\subsection{Qual o melhor?}
+
+	\subsection{Tomada de decisão}
 
 	Desenvolvidos os modelos, procedeu-se ao seu estudo. Foram feitas, entre outras, duas análises principais:
 	\begin{itemize}
-		\item a percentagem de predições corretas, com recurso à função \verb|predict(., type="response")| e usando como ponto de corte de probabilidade de doença 55\%;
+		\item a percentagem de predições corretas, com recurso à função \begin{verbatim} predict(., type="response") \end{verbatim} e usando como ponto de corte de probabilidade de doença 55\%;
 		\item o erro médio dado pela avaliação \textit{cross-validation - leave-one-out}, sendo esse erro médio a proporção de classificações corretas, usando o mesmo ponto de corte (55\%).
 	\end{itemize}
 	\begin{center}
@@ -298,11 +300,11 @@
 
 	Destas análises, é possível perceber que os modelos têm resultados semelhantes. No entanto, é possível perceber que alguns deles se destacam.
 
-	Vamos então destacar dois destes modelos: \textbf{4} e \textbf{8}. O primeiro destacam-se pela proporção de erro médio, com a técnica de \textit{leave-one-out}, mais baixa.
+	Vamos então destacar dois destes modelos: \textbf{4} e \textbf{8}. O primeiro destaca-se pela proporção de erro médio, com a técnica de \textit{leave-one-out}, mais baixa.
 	O último destaca-se pela proporção de classificações corretas, utilizando toda a base de dados, mais elevada.
 
 	Comparando estes modelos, percebemos que a decisão por um deles se prenderá pela importância que dermos a cada uma das análises.
-	Na opinião dos autores deste relatório, a segunda (erro médio) parece a mais relevante, uma vez que se avalia a capacidade do modelo prever dados que não pertencem à base de dados que serviu de treino.
+	Na opinião dos autores deste relatório, a segunda (erro médio) acaba por ser a mais relevante, uma vez que se avalia a capacidade do modelo prever dados que não pertencem à base de dados que serviu de treino.
 
 	Portanto, o modelo escolhido é o modelo número 4.
 }
@@ -380,67 +382,67 @@ colnames(db)
 # Garantir que nao existem valores em falta.
 sum(is.na(db))
 
-########## MODELOS ###############
+# ---------------------- MODELOS ----------------------
 
 # todas as variaveis
-model.1 = glm(target ~ ., family=binomial, data=db)
+model.1 = glm(target ~ ., family = binomial, data = db)
 summary(model.1)
 
 # sem fbs
-model.2 = glm(target ~ age+sex+cp+trestbps+chol+restecg+thalach+exang+oldpeak+slope+ca+thal, data = db, family = binomial)
+model.2 = glm(target ~ age + sex + cp + trestbps + chol + restecg + thalach + exang + oldpeak + slope + ca + thal, data = db, family = binomial)
 summary(model.2)
 
 # sem age
-model.3 = glm(target ~ sex+cp+trestbps+chol+restecg+thalach+exang+oldpeak+slope+ca+thal, data = db, family = binomial)
+model.3 = glm(target ~ sex + cp + trestbps + chol + restecg + thalach + exang + oldpeak + slope + ca + thal, data = db, family = binomial)
 summary(model.3) 
 
 # sem chol
-model.4 = glm(target ~ sex+cp+trestbps+restecg+thalach+exang+oldpeak+slope+ca+thal, data = db, family = binomial)
+model.4 = glm(target ~ sex + cp + trestbps + restecg + thalach + exang + oldpeak + slope + ca + thal, data = db, family = binomial)
 summary(model.4)
 
 # sem slope
-model.5 = glm(target ~ sex+cp+trestbps+restecg+thalach+exang+oldpeak+ca+thal, data = db, family = binomial)
+model.5 = glm(target ~ sex + cp + trestbps + restecg + thalach + exang + oldpeak + ca + thal, data = db, family = binomial)
 summary(model.5) # ja sao todas significativas, mas uma e a 10%
 
 # sem restecg, para ficarem todas a 5%
-model.6 = glm(target ~ sex+cp+trestbps+thalach+exang+oldpeak+ca+thal, data = db, family = binomial)
+model.6 = glm(target ~ sex + cp + trestbps + thalach + exang + oldpeak + ca + thal, data = db, family = binomial)
 summary(model.6) 
 
 # primeiro modelo tirando todas as vars nao significativas
-model.7 = glm(target ~ sex+cp+trestbps+thalach+exang+oldpeak+slope+ca+thal, family=binomial, data=db)
+model.7 = glm(target ~ sex + cp + trestbps + thalach + exang + oldpeak + slope + ca + thal, data = db, family = binomial)
 summary(model.7)
 
 
-############ TESTES #################
+# ---------------------- TESTES ----------------------
 
-model.test1 <- glm(target ~ age, data=db, family=binomial)
-model.test2 <- glm(target ~ sex, data=db, family=binomial)
-model.test3 <- glm(target ~ cp, data=db, family=binomial)
-model.test4 <- glm(target ~ trestbps, data=db, family=binomial)
-model.test5 <- glm(target ~ chol, data=db, family=binomial)
-model.test6 <- glm(target ~ fbs, data=db, family=binomial)
-model.test7 <- glm(target ~ restecg, data=db, family=binomial)
-model.test8 <- glm(target ~ thalach, data=db, family=binomial)
-model.test9 <- glm(target ~ exang, data=db, family=binomial)
-model.test10 <- glm(target ~ oldpeak, data=db, family=binomial)
-model.test11 <- glm(target ~ slope, data=db, family=binomial)
-model.test12 <- glm(target ~ ca, data=db, family=binomial)
-model.test13 <- glm(target ~ thal, data=db, family=binomial)
+model.test1 <- glm(target ~ age, data = db, family = binomial)
+model.test2 <- glm(target ~ sex, data = db, family = binomial)
+model.test3 <- glm(target ~ cp, data = db, family = binomial)
+model.test4 <- glm(target ~ trestbps, data = db, family = binomial)
+model.test5 <- glm(target ~ chol, data = db, family = binomial)
+model.test6 <- glm(target ~ fbs, data = db, family = binomial)
+model.test7 <- glm(target ~ restecg, data = db, family = binomial)
+model.test8 <- glm(target ~ thalach, data = db, family = binomial)
+model.test9 <- glm(target ~ exang, data = db, family = binomial)
+model.test10 <- glm(target ~ oldpeak, data = db, family = binomial)
+model.test11 <- glm(target ~ slope, data = db, family = binomial)
+model.test12 <- glm(target ~ ca, data = db, family = binomial)
+model.test13 <- glm(target ~ thal, data = db, family = binomial)
 
 # Modelo construido a partir da analise anterior
-model.8 = glm(target ~ sex+age+cp+trestbps+thalach+exang+oldpeak+slope+ca+thal, data=db, family=binomial)
+model.8 = glm(target ~ sex + age + cp + trestbps + thalach + exang + oldpeak + slope + ca + thal, data = db, family = binomial)
 summary(model.8)
 
-## Qual o melhor modelo?
+# Qual o melhor modelo?
 # Proporcao de classificacoes corretas
-probs.1 = predict(model.1, type="response");pred.1 = rep(0, 303);pred.1[probs.1 > 0.55] = 1 
-probs.2 = predict(model.2, type="response");pred.2 = rep(0, 303);pred.2[probs.2 > 0.55] = 1 
-probs.3 = predict(model.3, type="response");pred.3 = rep(0, 303);pred.3[probs.3 > 0.55] = 1 
-probs.4 = predict(model.4, type="response");pred.4 = rep(0, 303);pred.4[probs.4 > 0.55] = 1 
-probs.5 = predict(model.5, type="response");pred.5 = rep(0, 303);pred.5[probs.5 > 0.55] = 1 
-probs.6 = predict(model.6, type="response");pred.6 = rep(0, 303);pred.6[probs.6 > 0.55] = 1 
-probs.7 = predict(model.7, type="response");pred.7 = rep(0, 303);pred.7[probs.7 > 0.55] = 1
-probs.8 = predict(model.8, type="response");pred.8 = rep(0, 303);pred.8[probs.8 > 0.55] = 1
+probs.1 = predict(model.1, type = "response"); pred.1 = rep(0, 303); pred.1[probs.1 > 0.55] = 1 
+probs.2 = predict(model.2, type = "response"); pred.2 = rep(0, 303); pred.2[probs.2 > 0.55] = 1 
+probs.3 = predict(model.3, type = "response"); pred.3 = rep(0, 303); pred.3[probs.3 > 0.55] = 1 
+probs.4 = predict(model.4, type = "response"); pred.4 = rep(0, 303); pred.4[probs.4 > 0.55] = 1 
+probs.5 = predict(model.5, type = "response"); pred.5 = rep(0, 303); pred.5[probs.5 > 0.55] = 1 
+probs.6 = predict(model.6, type = "response"); pred.6 = rep(0, 303); pred.6[probs.6 > 0.55] = 1 
+probs.7 = predict(model.7, type = "response"); pred.7 = rep(0, 303); pred.7[probs.7 > 0.55] = 1
+probs.8 = predict(model.8, type = "response"); pred.8 = rep(0, 303); pred.8[probs.8 > 0.55] = 1
 
 mean(pred.1 == db$target)
 mean(pred.2 == db$target)
@@ -461,15 +463,15 @@ cv.err5 = c(); cv.err6 = c(); cv.err7 = c(); cv.err8 = c()
 
 s = nrow(db)
 
-cv.err1 <- c(cv.err1, cv.glm(db, model.1, cost=mycost, K=s)$delta[1])
-cv.err2 <- c(cv.err2, cv.glm(db, model.2, cost=mycost, K=s)$delta[1])
-cv.err3 <- c(cv.err3, cv.glm(db, model.3, cost=mycost, K=s)$delta[1])
-cv.err4 <- c(cv.err4, cv.glm(db, model.4, cost=mycost, K=s)$delta[1])
-cv.err5 <- c(cv.err5, cv.glm(db, model.5, cost=mycost, K=s)$delta[1])
-cv.err6 <- c(cv.err6, cv.glm(db, model.6, cost=mycost, K=s)$delta[1])
-cv.err7 <- c(cv.err7, cv.glm(db, model.7, cost=mycost, K=s)$delta[1])
-cv.err8 <- c(cv.err8, cv.glm(db, model.8, cost=mycost, K=s)$delta[1])
-cv.err9 <- c(cv.err9, cv.glm(db, model.9, cost=mycost, K=s)$delta[1])
+cv.err1 <- c(cv.err1, cv.glm(db, model.1, cost = mycost, K=s)$delta[1])
+cv.err2 <- c(cv.err2, cv.glm(db, model.2, cost = mycost, K=s)$delta[1])
+cv.err3 <- c(cv.err3, cv.glm(db, model.3, cost = mycost, K=s)$delta[1])
+cv.err4 <- c(cv.err4, cv.glm(db, model.4, cost = mycost, K=s)$delta[1])
+cv.err5 <- c(cv.err5, cv.glm(db, model.5, cost = mycost, K=s)$delta[1])
+cv.err6 <- c(cv.err6, cv.glm(db, model.6, cost = mycost, K=s)$delta[1])
+cv.err7 <- c(cv.err7, cv.glm(db, model.7, cost = mycost, K=s)$delta[1])
+cv.err8 <- c(cv.err8, cv.glm(db, model.8, cost = mycost, K=s)$delta[1])
+cv.err9 <- c(cv.err9, cv.glm(db, model.9, cost = mycost, K=s)$delta[1])
 
 cv.err1
 cv.err2
