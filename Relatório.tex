@@ -191,8 +191,11 @@
 
 	Foram testados diversos modelos de regressão logística para se descobrir qual deles seria o melhor.
 	
-	O primeiro deles foi também o mais óbvio, com todas as variáveis da base de dados como preditores.
-	model.1 <- glm(target ~ ., family=binomial, data=database)
+	O primeiro deles foi também o mais óbvio, com todas as variáveis da base de dados como preditores:
+
+	\begin{verbatim}
+		model.1 <- glm(target ~ ., family = binomial, data = database)
+	\end{verbatim}
 
 	A partir daqui, criaram-se diversos modelos. Uma a uma, retiram-se as variáveis não estatisticamente significativas.
 	Depois de retiradas 5 variáveis, todas as variáveis apresentavam significância, embora uma delas apenas a 10\%.
@@ -252,7 +255,7 @@
 	\begin{itemize}
 		\item a percentagem de predições corretas, com recurso à função \lstinline|predict(., type="response")| e usando como ponto de corte de probabilidade de doença 55\%;
 		\item o erro médio dado pela avaliação \textit{cross-validation - leave-one-out}, sendo esse erro médio a proporção de classificações corretas, usando o mesmo ponto de corte (55\%).
-
+	\end{itemize}
 	\begin{center}
 		\begin{tabular}{ | c | c | c | }
 		\hline
@@ -313,7 +316,7 @@
 		Com o mesmo tipo de preditores e uma base de dados mais extensa, é de prever melhorias nas avaliações.
 
 		Mas será isto necessário? Não conseguirá um médico especializado, com recurso aos mesmos dados, identificar uma doença cardíaca num paciente?
-		
+	\end{enumerate}
 }
 
 \chapter{Conclusão}
@@ -336,5 +339,9 @@
 		\par \textit{\url{https://www.kaggle.com/ronitf/heart-disease-uci}}
 		\item \textit{Website} com a informação oficial da base de dados escolhida:
 		\par \textit{\url{https://archive.ics.uci.edu/ml/datasets/Heart+Disease}}
-    \end{itemize}
+	\end{itemize}
+	
+\appendix
+\chapter{Observações}
+
 \end{document}
