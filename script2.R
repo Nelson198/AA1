@@ -75,9 +75,12 @@ summary(model.5) # ja sao todas significativas, mas uma e a 10%
 model.6 = glm(target ~ sex+cp+trestbps+thalach+exang+oldpeak+ca+thal, data = db, family = binomial())
 summary(model.6) 
 
-# primeiro modelo tirando todas as n�o significativas de uma vez
+# primeiro modelo tirando todas as nao significativas de uma vez
 model.7 = glm(target ~ sex+cp+trestbps+thalach+exang+oldpeak+slope+ca+thal, family=binomial, data=db)
 summary(model.7)
+
+model.9 = glm(target ~ sex+age+cp+trestbps+thalach+exang+oldpeak+slope+ca+thal, data=db, family=binomial)
+summary(model.9)
 
 
 # Predicao
@@ -88,6 +91,13 @@ probs.4 = predict(model.4, type="response");pred.4 = rep(0, 303);pred.4[probs.4 
 probs.5 = predict(model.5, type="response");pred.5 = rep(0, 303);pred.5[probs.5 > 0.5] = 1 ;table(pred.5, db$target)
 probs.6 = predict(model.6, type="response");pred.6 = rep(0, 303);pred.6[probs.6 > 0.5] = 1 ;table(pred.6, db$target)
 probs.7 = predict(model.7, type="response");pred.7 = rep(0, 303);pred.7[probs.7 > 0.5] = 1 ;table(pred.7, db$target)
+probs.8 = predict(model.8, type="response");pred.8 = rep(0, 303);pred.8[probs.8 > 0.5] = 1 ;table(pred.8, db$target)
+probs.9 = predict(model.9, type="response");pred.9 = rep(0, 303);
+
+probs.7 = predict(model.7, type="response");pred.7 = rep(0, 303)
+pred.7[probs.7 > 0.53] = 1
+mean(pred.7 == db$target)
+
 
 mean(pred.1 == db$target)
 mean(pred.2 == db$target)
@@ -96,19 +106,25 @@ mean(pred.4 == db$target)
 mean(pred.5 == db$target)
 mean(pred.6 == db$target)
 mean(pred.7 == db$target)
+mean(pred.8 == db$target)
+mean(pred.9 == db$target)
 
 ######### CROSS-VALIDATION #################
 
 library(boot)
 
-cv.err1 = c(); cv.err2 = c(); cv.err3 = c(); cv.err4 = c(); cv.err5 = c(); cv.err6 = c(); cv.err7 = c()
-cv.err1 <- c(cv.err1, cv.glm(db, model.1,K=303)$delta[1])
-cv.err2 <- c(cv.err2, cv.glm(db, model.2,K=303)$delta[1])
-cv.err3 <- c(cv.err3, cv.glm(db, model.3,K=303)$delta[1])
-cv.err4 <- c(cv.err4, cv.glm(db, model.4,K=303)$delta[1])
-cv.err5 <- c(cv.err5, cv.glm(db, model.5,K=303)$delta[1])
-cv.err6 <- c(cv.err6, cv.glm(db, model.6,K=303)$delta[1])
-cv.err7 <- c(cv.err7, cv.glm(db, model.7,K=303)$delta[1])
+mycost = function(r, pi = 0) mean(abs(r-pi)) > 0.55
+
+cv.err1 = c(); cv.err2 = c(); cv.err3 = c(); cv.err4 = c(); cv.err5 = c(); cv.err6 = c(); cv.err7 = c(); cv.err8 = c(); cv.err9 = c()
+cv.err1 <- c(cv.err1, cv.glm(db, model.1, cost=mycost, K=303)$delta[1])
+cv.err2 <- c(cv.err2, cv.glm(db, model.2, cost=mycost, K=303)$delta[1])
+cv.err3 <- c(cv.err3, cv.glm(db, model.3, cost=mycost, K=303)$delta[1])
+cv.err4 <- c(cv.err4, cv.glm(db, model.4, cost=mycost, K=303)$delta[1])
+cv.err5 <- c(cv.err5, cv.glm(db, model.5, cost=mycost, K=303)$delta[1])
+cv.err6 <- c(cv.err6, cv.glm(db, model.6, cost=mycost, K=303)$delta[1])
+cv.err7 <- c(cv.err7, cv.glm(db, model.7, cost=mycost, K=303)$delta[1])
+cv.err8 <- c(cv.err8, cv.glm(db, model.8, cost=mycost, K=303)$delta[1])
+cv.err9 <- c(cv.err9, cv.glm(db, model.9, cost=mycost, K=303)$delta[1])
 
 mean(cv.err1)
 mean(cv.err2)
@@ -117,6 +133,8 @@ mean(cv.err4)
 mean(cv.err5)
 mean(cv.err6)
 mean(cv.err7)
+mean(cv.err8)
+mean(cv.err9)
 
 ## O MELHOR MODELO PARECE SER O 2, mas nao e
 
